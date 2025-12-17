@@ -11,6 +11,8 @@ let transparentColor="transparent";
 let recorder;
 let chunks=[];
 let mediaStream;
+let recordCanvas = document.createElement("canvas");
+let ctx = recordCanvas.getContext("2d");
 let constrains={
     audio:true,
     video:true,
@@ -18,9 +20,20 @@ let constrains={
 navigator.mediaDevices.getUserMedia(constrains)
 .then((stream) => {
    video.srcObject=stream;
-   mediaStream=stream
+   mediaStream=stream;
+   video.addEventListener("loadedmetadata", () => {
+        drawToCanvas();
+    });
 
-   recorder = new MediaRecorder(stream);
+    let canvasStream = recordCanvas.captureStream(30);
+
+    // add audio track to canvas stream
+    stream.getAudioTracks().forEach(track => {
+        canvasStream.addTrack(track);
+    });
+      recorder = new MediaRecorder(canvasStream, {
+        mimeType: "video/mp4"
+    });
    recorder.addEventListener("start",(e)=>{
     chunks=[];
    })
@@ -80,6 +93,19 @@ pauseBtnCont.addEventListener("click", () => {
         startTimer(); // resume timer
     }
 });
+function drawToCanvas() {
+    recordCanvas.width = video.videoWidth;
+    recordCanvas.height = video.videoHeight;
+
+    ctx.drawImage(video, 0, 0, recordCanvas.width, recordCanvas.height);
+
+    if (transparentColor !== "transparent") {
+        ctx.fillStyle = transparentColor;
+        ctx.fillRect(0, 0, recordCanvas.width, recordCanvas.height);
+    }
+
+    requestAnimationFrame(drawToCanvas);
+}
 captureBtnCont.addEventListener('click',(e)=>{
     captureBtnCont.classList.add("scale-capture");
     let canvas =document.createElement("canvas");
