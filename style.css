@@ -1,0 +1,138 @@
+*{
+    box-sizing: border-box;
+}
+body{
+   padding: 0%;
+   margin: 0%;
+}
+.vid-container{
+    height: 100vh;
+    width: 100vw;
+}
+video{
+    height: 100%;
+    width: 100%;
+}
+.action-cont{
+    height:12rem;
+    width: 5rem;
+    position: absolute;
+    top: calc((100vh - 12rem)/2);
+    right: 5rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 2;
+}
+.action-cont > *{
+    height: 3.5rem;
+    width: 5rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.record-btn,
+.pause-btn,
+.capture-btn{
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    color: white;
+    cursor: pointer;
+}
+
+.record-btn{
+    background-color: red;
+}
+
+.pause-btn i{
+    background-color: gold;
+    color: black;
+    font-size: 1.1rem;
+}
+
+.capture-btn{
+    background-color: green;
+}
+
+.scale-record{
+    animation-name: scale-record;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+}
+.scale-capture{
+    animation-name: scale-capture;
+    animation-iteration-count: 10;
+    animation-duration: 1s;
+}
+@keyframes scale-record{
+    0%{
+        transform: scale(0.8);
+    }
+    100%{
+        transform: scale(1.1);
+    }
+}
+@keyframes scale-capture{
+    0%{
+        transform: scale(0.8);
+    }
+    100%{
+        transform: scale(1.1);
+    }
+}
+.timer-cont{
+    height: 12rem;
+    width: 5rem;
+    position: absolute;
+    top: 0;
+    color: aqua;
+    left:5rem;
+}
+.timer{
+    display: none;
+}
+.filter-cont{
+    height: 16rem;
+    width: 5rem;
+    background-color: aqua;
+    position: absolute;
+    top: calc((100vh - 16rem) / 2);
+    left: 5rem;
+    z-index: 2;
+}
+.filter-layer{
+    height: 100vh;
+    width: 100vw;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+.filter{
+    background-image: url("https://th.bing.com/th/id/OIP.FUMOGeMXuCHzAyOJ1eyYywAAAA?w=108&h=108&c=1&bgcl=89d4bd&r=0&o=7&cb=ucfimg1&dpr=1.5&pid=ImgRC&rm=3&ucfimg=1");
+    height: 4rem;
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-blend-mode: color-burn;
+}
+.orange{
+    background-color: #f4a0079e;
+}
+.brown{
+    background-color: #eb0b0bab;
+}
+.pink{
+    background-color: #e9b7c0bd;
+}
+.transparent{
+    background-color: transparent;
+}
